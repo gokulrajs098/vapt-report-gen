@@ -1,0 +1,40 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# for create-react-app
+.env
+
+# for backend
+/backend/node_modules
+/backend/package-lock.json
+/backend/npm-debug.log*
+
+# misc
+.DS_Store
+*.swp
+*.bak
+*.swo
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+
+# local web server files
+.cache
+.web_modules
+/dist
+/build
