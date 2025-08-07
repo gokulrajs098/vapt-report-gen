@@ -7,7 +7,7 @@ const port = 5000;
 
 app.use(express.json());
 
-app.get('')
+app.use('/api/reports', reportRoutes)
 
 app.listen(port, ()=>{
     console.log("server is running on port ${port}");
