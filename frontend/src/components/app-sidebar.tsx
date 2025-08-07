@@ -20,91 +20,11 @@ import {
   DropdownMenuTrigger,
  } from "@radix-ui/react-dropdown-menu"
 
-const frontmatter = [
-    {
-        title: "cover page",
-    },
-    {
-        title: "Index page",
-    },
-    {
-        title: "Test Objectives",
-    },
-    {
-        title: "Scope of engagement",
-    },
-    {
-        title: "Overview of the vulnerability",
-    },
-]
 
-const backmatter = [
-    {
-        title: "Conclusion",
-    },
-    {
-        title: "Engagement Information",
-    },
 
-]
 
-const vulnerabilities = [
-  {
-    title: "SQL Injection",
-    url: "#",
-    icon: Skull,
-  },
-  {
-    title: "Cross Site Scripting",
-    url: "#",
-    icon: Skull,
-  },
-  {
-    title: "HTML Injjection",
-    url: "#",
-    icon: Skull,
-  },
-  {
-    title: "Server Side Request Forgery",
-    url: "#",
-    icon: Skull,
-  },
-  {
-    title: "Brute-force",
-    url: "#",
-    icon: Skull,
-  },
-]
 
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-]
-
-export function AppSidebar(){
+export function AppSidebar(reportData){
   return (
     <Sidebar>
       <SidebarContent>
@@ -166,10 +86,10 @@ export function AppSidebar(){
             <SidebarGroupLabel>Front Matter</SidebarGroupLabel>
             <SidebarGroupContent>
                 <SidebarMenu>
-                    {frontmatter.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                    {reportData.pages.filter(page=>page.type == "Front Matter").map((page) => (
+                <SidebarMenuItem key={page.title}>
                   <SidebarMenuButton asChild>
-                      <span>{item.title}</span>
+                      <span>{page.title}</span>
                   </SidebarMenuButton>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -195,12 +115,12 @@ export function AppSidebar(){
             </SidebarGroupAction>
           <SidebarGroupContent>
             <SidebarMenu>
-              {vulnerabilities.map((item) => (
-                <SidebarMenuItem key={item.title}>
+              {reportData.pages.filter(page=>page.type=="Vulnerability").map((page) => (
+                <SidebarMenuItem key={page.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                    <a href={"#"}>
+                      <Skull />
+                      <span>{page.title}</span>
                     </a>
                   </SidebarMenuButton>
                   <DropdownMenu>
@@ -224,10 +144,10 @@ export function AppSidebar(){
             <SidebarGroupLabel>Front Matter</SidebarGroupLabel>
             <SidebarGroupContent>
                 <SidebarMenu>
-                    {backmatter.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                    {reportData.pages.filter(page=>page.type == "Back Matter").map((page) => (
+                <SidebarMenuItem key={page.title}>
                   <SidebarMenuButton asChild>
-                      <span>{item.title}</span>
+                      <span>{page.title}</span>
                   </SidebarMenuButton>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>

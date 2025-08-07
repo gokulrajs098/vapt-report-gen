@@ -2,10 +2,33 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "../app-sidebar"
 import Cookies from 'js-cookie';
 import Header from "../Header";
+import {useState, useEffect } from "react";
 
 export default function Layout() {
 
     const savedState = Cookies.get("sidebar_state") === "true";
+
+    const [reportData, setReportData] = useState(null);
+    useEffect(()=>{
+      const id = 1;
+  
+      async function getReport(id){
+        console.log("ran")
+        try{
+          const response = await fetch(`${process.env.API_BASE_URL}/api/reports/${id}`)
+          if(!response.ok){
+            throw new Error(`Error status: ${response.status}`);
+          }
+          const data = await response.json();
+          setReportData(data);
+          console.log(data.id);
+        }catch(error){
+          console.error("Error fetching data:", error)
+        }
+      }
+      getReport(id)
+    },[]);
+
     return (
       <div className="flex flex-col h-screen">
 
@@ -22,7 +45,7 @@ export default function Layout() {
         {/* --- SIDEBAR --- */}
     
           <SidebarProvider>
-            <AppSidebar/>
+            <AppSidebar reportData={reportData}/>
           </SidebarProvider>
        
 

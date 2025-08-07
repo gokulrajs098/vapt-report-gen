@@ -1,5 +1,5 @@
 // ESM: Import the shared data source
-import { reports } from '../db.js';
+import { reports } from './mock_db.js';
 
 // @desc    Get all pages for a specific report
 export const getAllPages = (req, res) => {
