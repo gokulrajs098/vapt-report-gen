@@ -20,16 +20,23 @@ import {
   DropdownMenuTrigger,
  } from "@radix-ui/react-dropdown-menu"
 
+export function AppSidebar({reportData}){
+  console.log("data_in_sidebar:",reportData)
 
-
-
-
-export function AppSidebar(reportData){
+  if (!reportData) {
+    return (
+        <Sidebar>
+            <SidebarContent>
+                <div className="p-4 text-sm text-gray-500">Loading...</div>
+            </SidebarContent>
+        </Sidebar>
+    );
+  }
   return (
-    <Sidebar>
+    <Sidebar className="">
       <SidebarContent>
         <SidebarGroup>
-            <SidebarGroupLabel>Header & Footer</SidebarGroupLabel>
+            <SidebarGroupLabel className="">Header & Footer</SidebarGroupLabel>
             <SidebarGroupContent>
                 <SidebarMenu>
                     <SidebarMenuItem key="Header">
@@ -39,7 +46,6 @@ export function AppSidebar(reportData){
                                     <LetterIcon letter="H"/>
                                     <span className="text-right">Header</span>
                                 </div>
-                                {/* <Eye className="text-align-right -mr-1"/> */}
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <SidebarMenuAction>
@@ -81,7 +87,6 @@ export function AppSidebar(reportData){
                 </SidebarMenu>
             </SidebarGroupContent>
         </SidebarGroup>
-
         <SidebarGroup>
             <SidebarGroupLabel>Front Matter</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -116,7 +121,7 @@ export function AppSidebar(reportData){
           <SidebarGroupContent>
             <SidebarMenu>
               {reportData.pages.filter(page=>page.type=="Vulnerability").map((page) => (
-                <SidebarMenuItem key={page.title}>
+                <SidebarMenuItem key={page.pageID}>
                   <SidebarMenuButton asChild>
                     <a href={"#"}>
                       <Skull />
