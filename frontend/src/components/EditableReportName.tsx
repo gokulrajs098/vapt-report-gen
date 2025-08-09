@@ -50,7 +50,7 @@ const EditableTitle = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 flex w-90">
       {isEditing ? (
         // --- EDIT MODE ---
         <div className="grid">
