@@ -4,16 +4,17 @@ import cors from "cors";
 const app = express();
 
 app.use(cors({
-    origin:"http://localhost:5173"
+    origin:"*"
 }))
 
 const port = 5000;
+const host = "0.0.0.0";
 
 app.use(express.json());
 
 app.use('/api/reports', reportRoutes)
 
-app.listen(port, ()=>{
+app.listen(port, host, ()=>{
   
     console.log(`server is running on port ${port}`);
 })
