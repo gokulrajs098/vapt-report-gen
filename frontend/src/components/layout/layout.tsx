@@ -10,7 +10,7 @@ import Header from "../Header";
 export default function Layout() {
 
     // const savedState = Cookies.get("sidebar_state") === "true";
-    const BASE_URL = "http://192.168.0.106:5000"
+    const BASE_URL = "http://10.52.230.236:5000"
 
 
     const [reportData, setReportData] = useState(null);

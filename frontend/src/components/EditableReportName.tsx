@@ -2,10 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 const EditableTitle = () => {
   const [title, setTitle] = useState('Untitled spreadsheet');
-  
-  // New state to hold the value before editing starts
   const [previousTitle, setPreviousTitle] = useState('');
-
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef(null);
 
@@ -16,10 +13,7 @@ const EditableTitle = () => {
     }
   }, [isEditing]);
 
-  // --- Event Handlers ---
-
   const handleTitleClick = () => {
-    // Before entering edit mode, save the current title as the "backup"
     setPreviousTitle(title);
     setIsEditing(true);
   };
@@ -28,50 +22,46 @@ const EditableTitle = () => {
     setTitle(e.target.value);
   };
 
-  // This function now handles the logic for finishing an edit
   const handleCommit = () => {
-    // If the input is empty or only contains whitespace, revert to the previous title
     if (title.trim() === '') {
       setTitle(previousTitle);
     }
-    // Otherwise, the new title is kept automatically because the 'title' state is already updated.
-    
     setIsEditing(false);
   };
   
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      handleCommit(); // Use the same commit logic
+      handleCommit();
     } else if (e.key === 'Escape') {
-      // Bonus: Allow user to cancel edit with Escape key
       setTitle(previousTitle);
       setIsEditing(false);
     }
   };
 
   return (
-    <div className="p-4 flex w-90">
+    // The parent div's height and padding are now consistent.
+    // The flex layout helps align content vertically.
+    <div className="flex items-center px-4 h-12">
       {isEditing ? (
         // --- EDIT MODE ---
-        <div className="grid">
-          <span className="invisible text-m font-semibold px-2 py-0.5 col-start-1 row-start-1">
-            {title}{' '}
-          </span>
-          <input
-            ref={inputRef}
-            type="text"
-            value={title}
-            onChange={handleInputChange}
-            onBlur={handleCommit} // Use the commit logic on blur
-            onKeyDown={handleKeyDown}
-            className="text-m font-semibold px-2 py-0.5 border-2 border-blue-500 rounded-md outline-none bg-transparent col-start-1 row-start-1 w-full"
-          />
-        </div>
+        // This input is given a consistent size and styling.
+        <input
+          ref={inputRef}
+          type="text"
+          value={title}
+          onChange={handleInputChange}
+          onBlur={handleCommit}
+          onKeyDown={handleKeyDown}
+          // The padding and height are matched with the h1 element below.
+          className="text-lg font-semibold px-2 py-0.5 border-2 border-blue-500 rounded-md outline-none bg-transparent w-full"
+        />
       ) : (
         // --- VIEW MODE ---
+        // The h1 element is also given a consistent size and styling.
         <h1
           onClick={handleTitleClick}
-          className="text-m font-semibold px-2 py-0.5 rounded-md cursor-pointer hover:bg-gray-200"
+          // The padding and height are matched with the input element above.
+          className="text-lg font-semibold px-2 py-0.5 rounded-md cursor-pointer hover:bg-gray-200"
         >
           {title}
         </h1>
